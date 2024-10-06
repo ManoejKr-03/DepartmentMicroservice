@@ -22,6 +22,8 @@ pipeline {
         }
         stage('Deploy') {
             steps {
+                bat "docker rm -f departmentservice-container"
+                bat "docker rmi -f departmentservice-image"
                 bat "docker build -t departmentservice-image ."
                 bat "docker run -p 8081:8081 -d --name departmentservice-container departmentservice-image"
             }
